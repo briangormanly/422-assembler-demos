@@ -1,7 +1,7 @@
-	.file	"hello.c"
+	.file	"cadd.c"
 	.section	.rodata
 .LC0:
-	.string	"Hello World."
+	.string	"x + y = %d"
 	.text
 	.globl	main
 	.type	main, @function
@@ -13,10 +13,18 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	$10, -8(%rbp)
+	movl	$100, -4(%rbp)
+	movl	-8(%rbp), %edx
+	movl	-4(%rbp), %eax
+	addl	%edx, %eax
+	movl	%eax, %esi
 	leaq	.LC0(%rip), %rdi
-	call	puts@PLT
 	movl	$0, %eax
-	popq	%rbp
+	call	printf@PLT
+	movl	$0, %eax
+	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc

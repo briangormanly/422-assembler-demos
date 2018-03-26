@@ -1,0 +1,24 @@
+
+hello:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000004000b0 <_start>:
+						; To Do this in assembly, we need to load the parameters into 
+						; the registers that the information will be expected in, and
+						; make the system call 
+						; see: 
+						
+    mov     rax, 1		; load value 1 in rax (register) this is the syscall number
+  4000b0:	b8 01 00 00 00       	mov    $0x1,%eax
+  4000b5:	bf 01 00 00 00       	mov    $0x1,%edi
+    mov     rdi, 1		; Used to pass 1st argument (file descriptor)
+  4000ba:	48 be d8 00 60 00 00 	movabs $0x6000d8,%rsi
+  4000c1:	00 00 00 
+    mov     rsi, msg	; Used to pass 2nd argument (message to write)
+  4000c4:	ba 0e 00 00 00       	mov    $0xe,%edx
+  4000c9:	0f 05                	syscall 
+  4000cb:	b8 3c 00 00 00       	mov    $0x3c,%eax
+  4000d0:	bf 00 00 00 00       	mov    $0x0,%edi
+  4000d5:	0f 05                	syscall 
